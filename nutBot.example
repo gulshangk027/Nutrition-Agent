@@ -1,0 +1,14 @@
+# IBM Watsonx.ai Configuration
+IBM_API_KEY=LRppC-N-iD-uUG6uzZCTOZvtRXGDZHdybylfaim7Fzhm
+IBM_PROJECT_ID=1390fdca-e001-44ac-b50a-76d0548ca820
+WATSONX_URL=https://au-syd.dai.cloud.ibm.com/
+#IBM_REGION=us-south
+
+# Flask Configuration
+FLASK_SECRET_KEY=your_secret_key_change_this_in_production
+FLASK_DEBUG=False
+FLASK_PORT=5000
+
+# Optional: Watsonx URL override (defaults to us-south)
+ 
+

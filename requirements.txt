@@ -1,0 +1,11 @@
+flask==3.0.3
+flask-cors==4.0.1
+python-dotenv==1.0.1
+# 1.5.14 lifts the pandas<2.2 restriction and ships wheels for Python 3.14
+ibm-watsonx-ai==1.5.14
+requests==2.32.3
+gunicorn==22.0.0
+
+# pandas 3.0.3 ships a cp314-win_amd64 wheel — no C compiler needed.
+# ibm-watsonx-ai>=1.5 requires pandas>=2.3.3 which resolves to this version.
+pandas==3.0.3

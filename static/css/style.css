@@ -1,0 +1,589 @@
+/* ============================================================
+   NutriSage AI — Main Stylesheet
+   Light + Dark mode, Bootstrap 5 compatible
+   ============================================================ */
+
+/* ── Custom Properties ──────────────────────────────────────── */
+:root {
+  --ns-bg:          #f7f8fa;
+  --ns-surface:     #ffffff;
+  --ns-border:      #e5e7eb;
+  --ns-text:        #1f2328;
+  --ns-muted:       #57606a;
+  --ns-accent:      #3b82d4;
+  --ns-accent-dark: #2563b0;
+  --ns-purple:      #7c5cd8;
+  --ns-green:       #22c55e;
+  --ns-amber:       #f59e0b;
+  --ns-red:         #ef4444;
+  --ns-shadow:      0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.05);
+  --ns-shadow-lg:   0 4px 16px rgba(0,0,0,.10);
+  --ns-radius:      12px;
+  --ns-radius-sm:   8px;
+  --ns-font:        "Inter", -apple-system, "Segoe UI", system-ui, sans-serif;
+  --ns-navbar-h:    56px;
+}
+
+[data-bs-theme="dark"] {
+  --ns-bg:      #0f1117;
+  --ns-surface: #1c1f26;
+  --ns-border:  #2d3039;
+  --ns-text:    #e6eaf1;
+  --ns-muted:   #8b949e;
+  --ns-shadow:  0 1px 3px rgba(0,0,0,.3), 0 1px 2px rgba(0,0,0,.2);
+  --ns-shadow-lg: 0 4px 16px rgba(0,0,0,.4);
+}
+
+/* ── Base ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family:      var(--ns-font);
+  background-color: var(--ns-bg);
+  color:            var(--ns-text);
+  font-size:        14.5px;
+  line-height:      1.6;
+  transition:       background-color .3s, color .3s;
+}
+
+.text-accent { color: var(--ns-accent) !important; }
+.fw-600 { font-weight: 600; }
+
+/* ── Navbar ─────────────────────────────────────────────────── */
+.ns-navbar {
+  background-color: var(--ns-surface);
+  border-bottom:    1px solid var(--ns-border);
+  height:           var(--ns-navbar-h);
+  backdrop-filter:  blur(8px);
+  z-index:          1030;
+  box-shadow:       var(--ns-shadow);
+}
+
+.ns-logo-icon {
+  display:          inline-flex;
+  align-items:      center;
+  justify-content:  center;
+  width:            32px;
+  height:           32px;
+  background:       linear-gradient(135deg, var(--ns-accent) 0%, var(--ns-purple) 100%);
+  border-radius:    8px;
+  color:            #fff;
+  font-size:        16px;
+}
+
+.ns-brand-text {
+  font-size:   18px;
+  font-weight: 700;
+  color:       var(--ns-text);
+  letter-spacing: -.3px;
+}
+
+.ns-status-badge {
+  display:     inline-flex;
+  align-items: center;
+  gap:         6px;
+  background:  rgba(34,197,94,.12);
+  color:       var(--ns-green);
+  border:      1px solid rgba(34,197,94,.25);
+  font-size:   11px;
+  padding:     3px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.ns-status-badge.demo {
+  background: rgba(245,158,11,.12);
+  color:      var(--ns-amber);
+  border-color: rgba(245,158,11,.25);
+}
+
+.ns-status-badge.error {
+  background: rgba(239,68,68,.12);
+  color:      var(--ns-red);
+  border-color: rgba(239,68,68,.25);
+}
+
+.ns-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: .35; }
+}
+
+.ns-dark-toggle {
+  background: transparent;
+  border:     1px solid var(--ns-border);
+  color:      var(--ns-muted);
+  border-radius: var(--ns-radius-sm);
+  padding:    4px 8px;
+}
+.ns-dark-toggle:hover { background: var(--ns-bg); color: var(--ns-text); }
+
+/* ── Hero Banner ────────────────────────────────────────────── */
+.ns-hero {
+  background: linear-gradient(135deg, rgba(59,130,212,.07) 0%, rgba(124,92,216,.07) 100%);
+  border-bottom: 1px solid var(--ns-border);
+}
+
+.ns-hero-title {
+  font-size:   2rem;
+  font-weight: 700;
+  letter-spacing: -.5px;
+  color: var(--ns-text);
+}
+
+.ns-hero-sub {
+  color: var(--ns-muted);
+  font-size: .95rem;
+}
+
+.ns-hero-chips { flex-wrap: wrap; }
+
+.ns-chip {
+  background:   rgba(59,130,212,.1);
+  color:        var(--ns-accent);
+  border:       1px solid rgba(59,130,212,.2);
+  padding:      4px 12px;
+  border-radius: 20px;
+  font-size:    .8rem;
+  font-weight:  500;
+}
+
+/* ── Sidebar ────────────────────────────────────────────────── */
+.ns-sidebar {
+  top: calc(var(--ns-navbar-h) + 12px);
+  padding-right: 8px;
+}
+
+.ns-tab-btn {
+  text-align:  left;
+  padding:     9px 14px;
+  border-radius: var(--ns-radius-sm);
+  color:       var(--ns-muted);
+  font-weight: 500;
+  font-size:   .88rem;
+  border:      none;
+  background:  transparent;
+  transition:  all .2s;
+  width: 100%;
+}
+
+.ns-tab-btn:hover, .ns-tab-btn.active {
+  background: rgba(59,130,212,.1);
+  color:      var(--ns-accent);
+}
+
+.ns-tab-btn.active {
+  font-weight: 600;
+  border-left: 3px solid var(--ns-accent);
+}
+
+.ns-ibm-badge {
+  display:       inline-block;
+  background:    linear-gradient(90deg, #0f62fe 0%, #6929c4 100%);
+  color:         #fff;
+  font-size:     .7rem;
+  font-weight:   700;
+  padding:       3px 10px;
+  border-radius: 6px;
+  letter-spacing: .5px;
+}
+
+.ns-powered-by { padding: 12px 0; border-top: 1px solid var(--ns-border); }
+
+/* ── Mobile Tab Bar ─────────────────────────────────────────── */
+.ns-mobile-tabs { white-space: nowrap; }
+
+.ns-tab-pill {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            2px;
+  padding:        6px 14px;
+  border-radius:  var(--ns-radius-sm);
+  color:          var(--ns-muted);
+  font-size:      .7rem;
+  font-weight:    500;
+  border:         1px solid var(--ns-border);
+  background:     var(--ns-surface);
+  flex-shrink:    0;
+  transition:     all .2s;
+}
+
+.ns-tab-pill i { font-size: 1.1rem; }
+
+.ns-tab-pill.active, .ns-tab-pill:hover {
+  background: rgba(59,130,212,.1);
+  border-color: var(--ns-accent);
+  color: var(--ns-accent);
+}
+
+/* ── Tab Sections ───────────────────────────────────────────── */
+.ns-tab-content {
+  display:   none;
+  animation: fadeIn .3s ease;
+}
+.ns-tab-content.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Cards ──────────────────────────────────────────────────── */
+.ns-card {
+  background:    var(--ns-surface);
+  border:        1px solid var(--ns-border);
+  border-radius: var(--ns-radius);
+  box-shadow:    var(--ns-shadow);
+  overflow:      hidden;
+}
+
+.ns-card-header {
+  padding:       12px 16px;
+  border-bottom: 1px solid var(--ns-border);
+  font-weight:   600;
+  font-size:     .92rem;
+  background:    rgba(0,0,0,.01);
+  display:       flex;
+  align-items:   center;
+}
+
+/* ── Stat Cards ─────────────────────────────────────────────── */
+.ns-stat-card {
+  background:    var(--ns-surface);
+  border:        1px solid var(--ns-border);
+  border-radius: var(--ns-radius);
+  padding:       16px;
+  text-align:    center;
+  box-shadow:    var(--ns-shadow);
+  transition:    transform .2s, box-shadow .2s;
+}
+
+.ns-stat-card:hover {
+  transform:  translateY(-2px);
+  box-shadow: var(--ns-shadow-lg);
+}
+
+.ns-stat-icon {
+  width:         44px;
+  height:        44px;
+  border-radius: 10px;
+  display:       inline-flex;
+  align-items:   center;
+  justify-content: center;
+  font-size:     1.25rem;
+  margin-bottom: 8px;
+}
+
+.ns-stat-value {
+  font-size:   1.6rem;
+  font-weight: 700;
+  color:       var(--ns-text);
+  line-height: 1.2;
+}
+
+.ns-stat-label {
+  font-size: .75rem;
+  color:     var(--ns-muted);
+  font-weight: 500;
+}
+
+/* ── Chat UI ────────────────────────────────────────────────── */
+.ns-chat-area {
+  overflow-y:  auto;
+  max-height:  55vh;
+  scroll-behavior: smooth;
+}
+
+.ns-msg {
+  display:       flex;
+  gap:           10px;
+  margin-bottom: 12px;
+  animation:     msgSlide .25s ease;
+}
+
+@keyframes msgSlide {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ns-msg-avatar {
+  width:         32px;
+  height:        32px;
+  border-radius: 50%;
+  display:       flex;
+  align-items:   center;
+  justify-content: center;
+  font-size:     14px;
+  flex-shrink:   0;
+  margin-top:    2px;
+}
+
+.ns-msg-bubble {
+  max-width:     80%;
+  padding:       10px 14px;
+  border-radius: var(--ns-radius);
+  font-size:     .9rem;
+  line-height:   1.6;
+}
+
+.ns-msg.user   { flex-direction: row-reverse; }
+.ns-msg.user .ns-msg-bubble {
+  background: var(--ns-accent);
+  color:      #fff;
+  border-bottom-right-radius: 4px;
+}
+.ns-msg.assistant .ns-msg-bubble {
+  background: var(--ns-bg);
+  border:     1px solid var(--ns-border);
+  border-bottom-left-radius: 4px;
+}
+
+.ns-msg.assistant .ns-msg-avatar {
+  background: linear-gradient(135deg, var(--ns-accent), var(--ns-purple));
+  color: #fff;
+}
+.ns-msg.user .ns-msg-avatar { background: var(--ns-border); color: var(--ns-muted); }
+
+/* Markdown-like formatting in bubbles */
+.ns-msg-bubble strong, .ns-msg-bubble b { font-weight: 600; }
+.ns-msg-bubble code {
+  background: rgba(0,0,0,.07);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: .85em;
+}
+
+.ns-typing-dots span {
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--ns-muted);
+  animation: typing-bounce .8s infinite;
+  margin: 0 2px;
+}
+.ns-typing-dots span:nth-child(2) { animation-delay: .16s; }
+.ns-typing-dots span:nth-child(3) { animation-delay: .32s; }
+
+@keyframes typing-bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30%           { transform: translateY(-6px); }
+}
+
+.ns-suggestion-chip {
+  background:   var(--ns-bg);
+  border:       1px solid var(--ns-border);
+  color:        var(--ns-muted);
+  font-size:    .78rem;
+  padding:      4px 12px;
+  border-radius: 20px;
+  cursor:       pointer;
+  transition:   all .18s;
+  white-space:  nowrap;
+}
+.ns-suggestion-chip:hover {
+  background:   rgba(59,130,212,.1);
+  border-color: var(--ns-accent);
+  color:        var(--ns-accent);
+}
+
+.ns-chat-input-bar { border-top: 1px solid var(--ns-border); }
+
+.ns-chat-input {
+  resize: none;
+  border: 1px solid var(--ns-border);
+  border-radius: var(--ns-radius-sm) 0 0 var(--ns-radius-sm) !important;
+  font-size: .9rem;
+  background: var(--ns-bg);
+  color: var(--ns-text);
+}
+.ns-chat-input:focus {
+  box-shadow: none;
+  border-color: var(--ns-accent);
+  background: var(--ns-surface);
+}
+
+.ns-send-btn {
+  background: var(--ns-accent);
+  color: #fff;
+  border: none;
+  border-radius: 0 var(--ns-radius-sm) var(--ns-radius-sm) 0 !important;
+  padding: 0 18px;
+}
+.ns-send-btn:hover { background: var(--ns-accent-dark); color: #fff; }
+
+.ns-clear-btn {
+  background: transparent;
+  border: 1px solid var(--ns-border);
+  color: var(--ns-muted);
+  border-radius: var(--ns-radius-sm);
+  padding: 3px 8px;
+}
+.ns-clear-btn:hover { color: var(--ns-red); border-color: var(--ns-red); }
+
+/* ── Forms ──────────────────────────────────────────────────── */
+.ns-label {
+  font-size:   .8rem;
+  font-weight: 600;
+  color:       var(--ns-muted);
+  margin-bottom: 4px;
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+}
+
+.ns-input {
+  background: var(--ns-bg) !important;
+  color:      var(--ns-text) !important;
+  border:     1px solid var(--ns-border) !important;
+  border-radius: var(--ns-radius-sm) !important;
+  font-size:  .9rem !important;
+  transition: border-color .2s !important;
+}
+.ns-input:focus {
+  border-color: var(--ns-accent) !important;
+  box-shadow:   0 0 0 3px rgba(59,130,212,.12) !important;
+}
+
+/* ── Buttons ────────────────────────────────────────────────── */
+.ns-btn-primary {
+  background:    var(--ns-accent);
+  border:        none;
+  color:         #fff;
+  font-weight:   600;
+  border-radius: var(--ns-radius-sm);
+  padding:       9px 20px;
+  font-size:     .9rem;
+  transition:    background .2s, transform .15s;
+}
+.ns-btn-primary:hover  { background: var(--ns-accent-dark); color: #fff; }
+.ns-btn-primary:active { transform: scale(.97); }
+
+.ns-btn-outline {
+  background:    transparent;
+  border:        1px solid var(--ns-accent);
+  color:         var(--ns-accent);
+  font-weight:   600;
+  border-radius: var(--ns-radius-sm);
+  padding:       7px 16px;
+  font-size:     .88rem;
+  transition:    all .2s;
+}
+.ns-btn-outline:hover { background: var(--ns-accent); color: #fff; }
+
+/* ── BMI Gauge ──────────────────────────────────────────────── */
+.ns-bmi-gauge-wrap { text-align: center; padding: 20px 0; }
+.ns-bmi-number { font-size: 3.5rem; font-weight: 700; line-height: 1; }
+.ns-bmi-cat { font-size: 1rem; font-weight: 600; margin-top: 6px; }
+
+.ns-progress-row { margin-bottom: 10px; }
+.ns-progress-row label {
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--ns-muted);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+.ns-progress-bar-track {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--ns-border);
+  overflow: hidden;
+}
+.ns-progress-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1s ease;
+}
+
+/* ── Macro Bars ─────────────────────────────────────────────── */
+.ns-macro-label { font-size: .82rem; font-weight: 600; display: flex; justify-content: space-between; margin-bottom: 3px; color: var(--ns-text); }
+
+/* ── Result areas ───────────────────────────────────────────── */
+.ns-result-area {
+  background: var(--ns-bg);
+  border: 1px solid var(--ns-border);
+  border-radius: var(--ns-radius-sm);
+  padding: 16px;
+  font-size: .88rem;
+  line-height: 1.75;
+  white-space: pre-wrap;
+}
+
+.ns-result-area h3, .ns-result-area h4 { font-size: 1rem; font-weight: 600; margin-top: 12px; color: var(--ns-accent); }
+.ns-result-area ul { padding-left: 20px; }
+.ns-result-area li { margin-bottom: 4px; }
+.ns-result-area strong { font-weight: 600; }
+
+/* ── Spinner ────────────────────────────────────────────────── */
+.ns-spinner-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 24px 0;
+  color: var(--ns-muted);
+  justify-content: center;
+}
+
+/* ── Family Member Card ─────────────────────────────────────── */
+.ns-member-card {
+  background: var(--ns-bg);
+  border: 1px solid var(--ns-border);
+  border-radius: var(--ns-radius);
+  padding: 14px;
+  position: relative;
+}
+.ns-member-card .ns-remove-btn {
+  position: absolute; top: 10px; right: 10px;
+  background: transparent; border: none;
+  color: var(--ns-muted); font-size: 1rem;
+  cursor: pointer; padding: 0 4px;
+}
+.ns-member-card .ns-remove-btn:hover { color: var(--ns-red); }
+
+/* ── Toast ──────────────────────────────────────────────────── */
+.ns-toast {
+  background: #1f2328;
+  color: #fff;
+  border-radius: var(--ns-radius-sm);
+  font-size: .88rem;
+}
+
+/* ── Offcanvas (mobile) ─────────────────────────────────────── */
+.ns-offcanvas {
+  background: var(--ns-surface);
+  border-left: 1px solid var(--ns-border);
+}
+
+/* ── Utility ────────────────────────────────────────────────── */
+.ns-divider { height: 1px; background: var(--ns-border); margin: 16px 0; }
+
+.ns-timestamp {
+  font-size: .72rem;
+  color: var(--ns-muted);
+  margin-top: 4px;
+  text-align: right;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────── */
+.ns-chat-area::-webkit-scrollbar { width: 5px; }
+.ns-chat-area::-webkit-scrollbar-track { background: transparent; }
+.ns-chat-area::-webkit-scrollbar-thumb { background: var(--ns-border); border-radius: 4px; }
+
+/* ── Responsive Tweaks ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .ns-hero-title { font-size: 1.5rem; }
+  .ns-bmi-number { font-size: 2.8rem; }
+  .ns-msg-bubble { max-width: 90%; }
+  .ns-chat-area  { max-height: 45vh; }
+}
+
+/* ── Glowing accent effect for active tab ───────────────────── */
+.ns-tab-btn.active i { filter: drop-shadow(0 0 4px rgba(59,130,212,.5)); }

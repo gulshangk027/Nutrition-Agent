@@ -1,0 +1,183 @@
+
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NutriSage AI — Project Summary</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;background:#f7f8fa;color:#1f2328;font-size:14px;line-height:1.6;padding:24px}
+  .wrap{max-width:760px;margin:0 auto}
+  h1{font-size:1.5rem;font-weight:700;letter-spacing:-.4px;margin-bottom:4px}
+  .subtitle{color:#57606a;font-size:.9rem;margin-bottom:24px}
+  .ibm-badge{display:inline-block;background:linear-gradient(90deg,#0f62fe,#6929c4);color:#fff;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:6px;letter-spacing:.5px;margin-left:8px;vertical-align:middle}
+  h2{font-size:1rem;font-weight:700;margin:24px 0 10px;padding-bottom:6px;border-bottom:1px solid #e5e7eb;color:#1f2328}
+  h3{font-size:.88rem;font-weight:700;color:#3b82d4;margin:14px 0 6px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+  .card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px}
+  .file-tree{background:#1c1f26;color:#e6eaf1;border-radius:10px;padding:16px;font-family:"Courier New",monospace;font-size:.8rem;line-height:1.8;margin-bottom:16px}
+  .file-tree .dir{color:#7c5cd8;font-weight:700}
+  .file-tree .file{color:#7ee787}
+  .file-tree .note{color:#8b949e}
+  table{width:100%;border-collapse:collapse;font-size:.85rem;margin-bottom:16px}
+  th{background:#f0f3f6;font-weight:600;padding:7px 10px;text-align:left;border:1px solid #e5e7eb}
+  td{padding:6px 10px;border:1px solid #e5e7eb;vertical-align:top}
+  .badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:.72rem;font-weight:600}
+  .badge-blue{background:rgba(59,130,212,.12);color:#2563b0}
+  .badge-green{background:rgba(34,197,94,.12);color:#16a34a}
+  .badge-amber{background:rgba(245,158,11,.12);color:#d97706}
+  .badge-purple{background:rgba(124,92,216,.12);color:#7c5cd8}
+  code{background:#f0f3f6;padding:1px 5px;border-radius:4px;font-size:.8rem;font-family:"Courier New",monospace}
+  .step{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
+  .step-num{width:26px;height:26px;border-radius:50%;background:#3b82d4;color:#fff;font-weight:700;font-size:.8rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+  .step-body{flex:1}
+  .step-body strong{display:block;margin-bottom:2px;font-size:.88rem}
+  .step-body code{font-size:.78rem}
+  .agent-block{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:14px;margin-bottom:16px}
+  .agent-block h3{color:#c2410c;margin-top:0}
+  .knob-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:.83rem}
+  .knob-name{font-weight:700;color:#1f2328;min-width:180px}
+  .knob-val{color:#3b82d4;font-family:"Courier New",monospace;font-size:.78rem}
+  .feature-pill{display:inline-block;background:#f0f3f6;border:1px solid #e5e7eb;border-radius:20px;padding:3px 12px;font-size:.78rem;margin:3px 2px;color:#1f2328}
+  footer{margin-top:32px;padding-top:12px;border-top:1px solid #e5e7eb;text-align:center;color:#8b949e;font-size:11px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>🌿 NutriSage AI <span class="ibm-badge">IBM Watsonx.ai</span></h1>
+  <p class="subtitle">AI-powered Nutrition Agent · Flask + Granite · Indian cuisine specialist · Family diet planner</p>
+
+  
+  <h2>✨ Features Delivered</h2>
+  <div style="margin-bottom:16px">
+    <span class="feature-pill">💬 Chat Assistant</span>
+    <span class="feature-pill">📊 Nutrition Dashboard</span>
+    <span class="feature-pill">🗓 7-Day Meal Planner</span>
+    <span class="feature-pill">⚖️ BMI + TDEE Calculator</span>
+    <span class="feature-pill">👨‍👩‍👧 Family Profiles</span>
+    <span class="feature-pill">🔍 Meal Analyzer</span>
+    <span class="feature-pill">🌙 Dark Mode</span>
+    <span class="feature-pill">📱 Mobile Responsive</span>
+    <span class="feature-pill">🇮🇳 Indian Cuisine</span>
+    <span class="feature-pill">🔐 Secure .env</span>
+    <span class="feature-pill">⚡ Demo Mode Fallback</span>
+    <span class="feature-pill">🎨 Bootstrap 5 + Animations</span>
+  </div>
+
+  
+  <h2>📁 Project Structure</h2>
+  <div class="file-tree">
+<span class="dir">nutrition/</span>
+├── <span class="file">app.py</span>              <span class="note">← Flask backend · AGENT_INSTRUCTIONS · 6 API routes (18 KB)</span>
+├── <span class="file">requirements.txt</span>    <span class="note">← 5 dependencies (flask, watsonx-ai, dotenv…)</span>
+├── <span class="file">.env.example</span>        <span class="note">← Template — copy to .env and fill keys</span>
+├── <span class="file">README.md</span>           <span class="note">← Full deployment guide + API docs</span>
+├── <span class="dir">templates/</span>
+│   └── <span class="file">index.html</span>       <span class="note">← Main UI: navbar, tabs, all panels (24.8 KB)</span>
+└── <span class="dir">static/</span>
+    ├── <span class="dir">css/</span>
+    │   └── <span class="file">style.css</span>    <span class="note">← Custom styles + dark mode + animations (17.2 KB)</span>
+    └── <span class="dir">js/</span>
+        └── <span class="file">app.js</span>       <span class="note">← All frontend logic: chat, BMI, family, tabs (24 KB)</span>
+  </div>
+
+  
+  <h2>🚀 Quick Start (5 steps)</h2>
+  <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Create virtual env</strong><code>python -m venv venv &amp;&amp; venv\Scripts\activate</code></div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Install dependencies</strong><code>pip install -r requirements.txt</code></div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Copy &amp; fill credentials</strong><code>cp .env.example .env</code> → add IBM_API_KEY + IBM_PROJECT_ID</div></div>
+  <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Run the app</strong><code>python app.py</code></div></div>
+  <div class="step"><div class="step-num">5</div><div class="step-body"><strong>Open browser</strong><code>http://localhost:5000</code></div></div>
+
+  
+  <h2>🎛️ AGENT_INSTRUCTIONS — Customisation Knobs</h2>
+  <div class="agent-block">
+    <h3>Edit these constants in <code>app.py</code> (top of file)</h3>
+    <div class="knob-row"><span class="knob-name">AGENT_NAME</span><span class="knob-val">"NutriSage AI"</span><span style="color:#57606a;font-size:.8rem">— Display name / persona</span></div>
+    <div class="knob-row"><span class="knob-name">DEFAULT_DIET_TYPE</span><span class="knob-val">"balanced"</span><span style="color:#57606a;font-size:.8rem">— balanced · keto · vegan · diabetic</span></div>
+    <div class="knob-row"><span class="knob-name">DEFAULT_CUISINE</span><span class="knob-val">"Indian"</span><span style="color:#57606a;font-size:.8rem">— Indian · Mediterranean · Global</span></div>
+    <div class="knob-row"><span class="knob-name">TEMPERATURE</span><span class="knob-val">0.7</span><span style="color:#57606a;font-size:.8rem">— 0.0=factual, 1.0=creative</span></div>
+    <div class="knob-row"><span class="knob-name">RESPONSE_MAX_TOKENS</span><span class="knob-val">900</span><span style="color:#57606a;font-size:.8rem">— Max length of each AI response</span></div>
+    <div class="knob-row"><span class="knob-name">GRANITE_MODEL_ID</span><span class="knob-val">"ibm/granite-3-3-8b-instruct"</span><span style="color:#57606a;font-size:.8rem">— Watsonx model to use</span></div>
+    <div class="knob-row"><span class="knob-name">SYSTEM_PROMPT</span><span class="knob-val">f-string</span><span style="color:#57606a;font-size:.8rem">— Full persona injected into every chat</span></div>
+  </div>
+
+  
+  <h2>🌐 API Routes</h2>
+  <table>
+    <tr><th>Method</th><th>Endpoint</th><th>Description</th><th>Key inputs</th></tr>
+    <tr><td><span class="badge badge-green">GET</span></td><td><code>/</code></td><td>Main UI</td><td>—</td></tr>
+    <tr><td><span class="badge badge-blue">GET</span></td><td><code>/api/status</code></td><td>Health check + Watsonx connection</td><td>—</td></tr>
+    <tr><td><span class="badge badge-amber">POST</span></td><td><code>/api/chat</code></td><td>Chat with the nutrition agent</td><td>message, history, family_context</td></tr>
+    <tr><td><span class="badge badge-amber">POST</span></td><td><code>/api/nutrition-plan</code></td><td>7-day personalised meal plan</td><td>weight, height, age, gender, goal, diet_type</td></tr>
+    <tr><td><span class="badge badge-amber">POST</span></td><td><code>/api/bmi</code></td><td>BMI + TDEE + AI tips</td><td>weight, height, age, gender, activity</td></tr>
+    <tr><td><span class="badge badge-amber">POST</span></td><td><code>/api/family-plan</code></td><td>Shared family meal plan</td><td>members[] (name, age, gender, diet, goals)</td></tr>
+    <tr><td><span class="badge badge-amber">POST</span></td><td><code>/api/analyze-meal</code></td><td>Nutritional analysis of a meal</td><td>meal, portion</td></tr>
+  </table>
+
+  
+  <h2>🏗 Architecture</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Backend (app.py)</h3>
+      <ul style="padding-left:16px;font-size:.83rem">
+        <li>Flask 3 with flask-cors</li>
+        <li>ibm-watsonx-ai SDK (chat API)</li>
+        <li>Granite 3.3 8B Instruct model</li>
+        <li>Mifflin–St Jeor BMR/TDEE formula</li>
+        <li>Watsonx singleton (lazy init)</li>
+        <li>Demo mode fallback (no key needed)</li>
+        <li>SYSTEM_PROMPT injected per request</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Frontend</h3>
+      <ul style="padding-left:16px;font-size:.83rem">
+        <li>Bootstrap 5.3 + Bootstrap Icons</li>
+        <li>6 tabs: Chat, Dashboard, Meal, BMI, Family, Analyzer</li>
+        <li>Dark/light mode + localStorage persist</li>
+        <li>Animated messages + typing indicator</li>
+        <li>Real-time char counter + Ctrl+Enter</li>
+        <li>Macro breakdown bars (animated)</li>
+        <li>Mobile offcanvas + bottom tab bar</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Security</h3>
+      <ul style="padding-left:16px;font-size:.83rem">
+        <li>All secrets in .env (never in code)</li>
+        <li>python-dotenv for safe loading</li>
+        <li>Safety rules baked into SYSTEM_PROMPT</li>
+        <li>FLASK_DEBUG=False for production</li>
+        <li>.env.example (no real keys committed)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Deployment Options</h3>
+      <ul style="padding-left:16px;font-size:.83rem">
+        <li>Local: <code>python app.py</code></li>
+        <li>Prod: <code>gunicorn -w 2 app:app</code></li>
+        <li>Docker: Dockerfile included in README</li>
+        <li>IBM Code Engine (serverless)</li>
+        <li>Railway / Render / Fly.io</li>
+      </ul>
+    </div>
+  </div>
+
+  
+  <h2>🛡️ Built-in Safety Rules (SYSTEM_PROMPT)</h2>
+  <table>
+    <tr><th>#</th><th>Rule</th></tr>
+    <tr><td>1</td><td>Never diagnose medical conditions or replace professional advice</td></tr>
+    <tr><td>2</td><td>Always recommend consulting a doctor for health/clinical issues</td></tr>
+    <tr><td>3</td><td>Do not suggest supplements beyond standard food sources</td></tr>
+    <tr><td>4</td><td>Flag extreme calorie goals (&lt;1000 or &gt;4000 kcal/day) as unsafe</td></tr>
+    <tr><td>5</td><td>Do not repeat sensitive personal data unnecessarily</td></tr>
+    <tr><td>6</td><td>Respond empathetically if user shows signs of distress</td></tr>
+  </table>
+
+  <footer>Made with IBM Bob</footer>
+</div>
+</body>
+</html>

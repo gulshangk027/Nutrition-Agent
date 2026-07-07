@@ -5,12 +5,6 @@
 
 ---
 
-# 🥗 NutriSage AI
-
-🚀 **Live Demo:** https://nutrition-agent-lo0o.onrender.com
-
-An AI-powered Personal Nutrition Assistant built with IBM watsonx.ai.
-
 ## Live Website
 👉 https://nutrition-agent-lo0o.onrender.com
 

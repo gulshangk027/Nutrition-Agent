@@ -131,12 +131,23 @@ _iam_token_expiry = 0.0
 _watsonx_init_error = None
 _working_project  = None   # project ID confirmed working at startup
 _working_model    = None   # model ID confirmed working at startup
+_last_probe_time  = 0.0    # epoch seconds of last successful probe
+_REPROBE_INTERVAL = 1800   # re-probe every 30 minutes even if working
 
 PLACEHOLDER_VALUES = {"", "your_ibm_cloud_api_key_here", "your_watsonx_project_id_here"}
 
 
 def _is_configured() -> bool:
     return IBM_API_KEY not in PLACEHOLDER_VALUES
+
+
+def _reset_working_combo():
+    """Clear cached working combo so next call triggers a fresh probe."""
+    global _working_project, _working_model, _iam_token, _iam_token_expiry
+    _working_project   = None
+    _working_model     = None
+    _iam_token         = None   # force token refresh too
+    _iam_token_expiry  = 0.0
 
 
 def _get_iam_token() -> str | None:
@@ -162,23 +173,24 @@ def _get_iam_token() -> str | None:
         return None
 
 
-def _try_chat(token: str, project_id: str, model_id: str, test: bool = False) -> dict | None:
+def _try_chat(token: str, project_id: str, model_id: str, url: str,
+              payload: dict | None = None) -> dict | None:
     """
     POST to /ml/v1/text/chat. Returns parsed JSON on HTTP 200, None otherwise.
-    If test=True uses a minimal 5-token payload (for probing only).
+    If payload is None a minimal 5-token probe payload is used.
     """
-    payload = {
-        "model_id":   model_id,
-        "project_id": project_id,
-        "messages":   [{"role": "user", "content": "hi"}],
-        "parameters": {"max_new_tokens": 5},
-    } if test else None   # replaced by caller for real calls
-
+    if payload is None:
+        payload = {
+            "model_id":   model_id,
+            "project_id": IBM_PROJECT_ID,
+            "messages":   [{"role": "user", "content": "hi"}],
+            "parameters": {"max_new_tokens": 5},
+        }
     resp = requests.post(
-        f"{WATSONX_URL}/ml/v1/text/chat?version=2024-05-01",
+        f"{url}/ml/v1/text/chat?version=2024-05-01",
         headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
         json=payload,
-        timeout=30 if test else 90,
+        timeout=30 if payload["parameters"].get("max_new_tokens", 99) <= 5 else 90,
     )
     return resp.json() if resp.status_code == 200 else None
 
@@ -205,7 +217,7 @@ def _probe_working_combo() -> bool:
     Sets _working_project, _working_model, WATSONX_URL as side-effects.
     Returns True if a working combo was found.
     """
-    global _working_project, _working_model, _watsonx_init_error, GRANITE_MODEL_ID, WATSONX_URL
+    global _working_project, _working_model, _watsonx_init_error, GRANITE_MODEL_ID, WATSONX_URL, _last_probe_time
 
     if not _is_configured():
         _watsonx_init_error = "IBM_API_KEY not set in .env"
@@ -251,11 +263,13 @@ def _probe_working_combo() -> bool:
                         GRANITE_MODEL_ID    = mid
                         WATSONX_URL         = url
                         _watsonx_init_error = None
+                        _last_probe_time    = time.time()
                         logger.info(f"✅ Watsonx live — url={url} project={pid[:8]}… model={mid}")
                         return True
                     else:
+                        status_code = resp.status_code
                         err = resp.json().get("errors", [{}])[0].get("message", "")[:80]
-                        logger.debug(f"  skip url={url.split('.')[1]} pid={pid[:8]} model={mid.split('/')[-1]} err={err}")
+                        logger.debug(f"  skip url={url.split('.')[1]} pid={pid[:8]} model={mid.split('/')[-1]} status={status_code} err={err}")
                 except Exception as exc:
                     logger.debug(f"  error {url}: {exc}")
 
@@ -273,10 +287,16 @@ except Exception:
 
 def call_watsonx(messages: list[dict]) -> str:
     """Call Watsonx using the confirmed working project + model."""
-    global _watsonx_init_error
+    global _watsonx_init_error, _last_probe_time
 
-    if not _working_project or not _working_model:
-        # Try re-probe once (handles token expiry / transient errors)
+    # Periodic re-probe: refresh working combo every _REPROBE_INTERVAL seconds
+    # so that key rotations, project changes, or model deprecations are auto-healed.
+    needs_reprobe = (
+        not _working_project
+        or not _working_model
+        or (time.time() - _last_probe_time) > _REPROBE_INTERVAL
+    )
+    if needs_reprobe:
         if not _probe_working_combo():
             return _demo_response(messages)
 
@@ -302,9 +322,24 @@ def call_watsonx(messages: list[dict]) -> str:
             json=payload,
             timeout=90,
         )
+        if resp.status_code in (401, 403):
+            # Auth failure — key may have been rotated; reset and retry once
+            logger.warning(f"⚠️ Watsonx auth error ({resp.status_code}) — resetting combo and retrying…")
+            _reset_working_combo()
+            if _probe_working_combo():
+                token = _get_iam_token()
+                resp = requests.post(
+                    f"{WATSONX_URL}/ml/v1/text/chat?version=2024-05-01",
+                    headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+                    json=payload,
+                    timeout=90,
+                )
+            # If still failing, fall through to error handling below
         if resp.status_code != 200:
             logger.error(f"❌ Watsonx {resp.status_code}: {resp.text[:300]}")
             _watsonx_init_error = f"HTTP {resp.status_code}: {resp.text[:200]}"
+            # Reset so next request re-probes rather than staying stuck in demo mode
+            _reset_working_combo()
             return _demo_response(messages)
 
         data    = resp.json()
@@ -321,6 +356,8 @@ def call_watsonx(messages: list[dict]) -> str:
     except Exception as exc:
         logger.error(f"❌ call_watsonx: {exc}")
         _watsonx_init_error = str(exc)
+        # Reset so next request re-probes (transient network error recovery)
+        _reset_working_combo()
         return _demo_response(messages)
 
 

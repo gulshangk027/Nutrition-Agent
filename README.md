@@ -5,10 +5,6 @@
 
 ---
 
-## Live Website
-👉 https://nutrition-agent-lo0o.onrender.com
-
-
 ## 📁 Project Structure
 
 ```
